@@ -1,8 +1,8 @@
 # Makefile
 
-VER ?= 3.1.3
 IMAGE_NAME ?= xczh/kms
 CONTAINER_NAME ?= kms
+VER ?= $(shell git ls-remote -t https://github.com/shadowsocks/shadowsocks-libev | awk -F/ '$$3 ~ /^v[0-9](\.[0-9])+$$/ {print substr($$3,2)}' | sort -Vr | head -n 1)
 
 PASSWORD ?= hello_ss
 SERVER_PORT ?= 6011
@@ -21,10 +21,10 @@ run: stop_container
 	                   -e SERVER_PORT=${SERVER_PORT} \
 	                   -e PASSWORD=${PASSWORD} \
 	                   -e DNS_ADDR=${DNS_ADDR} \
-	                   ${IMAGE_NAME}:${TAG}
+	                   ${IMAGE_NAME}:${VER}
 
 remove_image:
-	-sudo docker rmi ${IMAGE_NAME}:${TAG} > /dev/null 2>&1
+	-sudo docker rmi ${IMAGE_NAME}:${VER} > /dev/null 2>&1
 
 stop_container:
 	-sudo docker stop ${CONTAINER_NAME} > /dev/null 2>&1 && sudo docker rm ${CONTAINER_NAME}
