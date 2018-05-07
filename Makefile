@@ -1,8 +1,8 @@
 # Makefile
 
 VER ?= 3.1.3
-IMAGE_NAME ?= xczh/kms
-CONTAINER_NAME ?= kms
+IMAGE_NAME ?= xczh/ss-libev
+CONTAINER_NAME ?= ss-libev
 
 PASSWORD ?= hello_ss
 SERVER_PORT ?= 6011
